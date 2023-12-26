@@ -48,7 +48,6 @@ class ResourceController extends GetxController {
       if (response.statusCode == 204) {
         print('Resource deleted successfully');
         resourcesList.removeWhere((resource) => resource.id == resourceId);
-        
       } else if (response.statusCode == 401) {
         print('Unauthorized: ${response.body}');
       } else {
@@ -57,6 +56,42 @@ class ResourceController extends GetxController {
       }
     } catch (e) {
       print('An unexpected error occurred: $e');
+    }
+  }
+
+  Future<String?> addResource({
+    required String name,
+    required String description,
+    required int quantity,
+    required List<int> categories,
+  }) async {
+    try {
+      var data = {
+        'name': name,
+        'description': description,
+        'quantity': quantity,
+        'categories': categories,
+      };
+
+      var response = await http.post(
+        Uri.parse(url + '/resources'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${_authController.authToken.value}',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 201) {
+        // Ressource ajoutée avec succès
+        return null;
+      } else if (response.statusCode == 400) {
+        return "Erreur lors de l'ajout de la ressource. Code 400.";
+      } else {
+        return "Erreur lors de l'ajout de la ressource. Code ${response.statusCode}.";
+      }
+    } catch (e) {
+      return "Erreur inattendue lors de l'ajout de la ressource : $e";
     }
   }
 }

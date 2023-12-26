@@ -67,19 +67,42 @@ class ResourceList extends StatelessWidget {
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  IconButton(
-                                    icon: Icon(Icons.arrow_forward),
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, '/resource/details',
-                                          arguments: resource);
-                                    },
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        color: Colors.white,
+                                        size: 14,
+                                      ),
+                                      style: ButtonStyle(),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/resource/show',
+                                            arguments: resource);
+                                      },
+                                    ),
                                   ),
-                                  IconButton(
-                                    icon: Icon(Icons.delete),
-                                    onPressed: () {
-                                      resourceController.deleteResource(resource.id);
-                                    },
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.red[500],
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                        size: 14,
+                                      ),
+                                      onPressed: () {
+                                        resourceController
+                                            .deleteResource(resource.id);
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
