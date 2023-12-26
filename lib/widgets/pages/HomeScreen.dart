@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:stock_management/controllers/authentication.dart';
 import 'package:stock_management/widgets/components/MyCard.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final AuthenticationController _authenticationController = Get.find();
+  
+  HomeScreen({super.key});
+  
 
   void goToRessourceScreen() {}
   void goToOperationScreen() {}
@@ -88,6 +93,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+
+            SizedBox(height: 40,),
+            Obx(() {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text('Token: ${_authenticationController.authToken}'),
+              );
+            }),
           ],
         ),
       ),

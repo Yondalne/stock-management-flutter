@@ -1,8 +1,12 @@
+// category_model.dart
 class Category {
-  int id;
-  String label;
+  final int id;
+  final String label;
 
-  Category({required this.id, required this.label});
+  Category({
+    required this.id,
+    required this.label,
+  });
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(

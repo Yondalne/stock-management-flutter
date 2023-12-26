@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:stock_management/controllers/authentication.dart';
 import 'package:stock_management/widgets/components/MyButton.dart';
 import 'package:stock_management/widgets/components/MyTextField.dart';
 
@@ -9,8 +11,16 @@ class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
-  // void signIn() {}
+  final AuthenticationController _authenticationController =
+      Get.put(AuthenticationController());
+
+  void login(BuildContext context) async {
+    await _authenticationController.login(
+      context: context,
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +30,7 @@ class LoginScreen extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children:  [
               // Logo
               const Icon(Icons.lock, size: 100),
 
@@ -59,9 +69,7 @@ class LoginScreen extends StatelessWidget {
               // signin button
               MyButton(
                 text: "Sign in",
-                onTap: () {
-                  Navigator.pushNamed(context, "/home");
-                },
+                onTap: () => login(context),
               ),
 
               const SizedBox(height: 50),

@@ -16,12 +16,14 @@ class RegisterScreen extends StatelessWidget {
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
 
-  void register() async {
+  void register(BuildContext context) async {
     await _authenticationController.register(
-        name: nameController.text.trim(),
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-        contact: contactController.text.trim());
+      context: context,
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      contact: contactController.text.trim(),
+    );
   }
 
   @override
@@ -87,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : MyButton(
                         text: "Register",
-                        onTap: register,
+                        onTap: () => register(context),
                       );
               }),
 
