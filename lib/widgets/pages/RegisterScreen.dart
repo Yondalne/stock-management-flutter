@@ -85,12 +85,10 @@ class RegisterScreen extends StatelessWidget {
 
               // signin button
               Obx(() {
-                return _authenticationController.isLoading.value
-                    ? CircularProgressIndicator()
-                    : MyButton(
-                        text: "Register",
-                        onTap: () => register(context),
-                      );
+                return MyButton(
+                  text: "Register",
+                  onTap: () => register(context),
+                );
               }),
 
               const SizedBox(height: 50),
