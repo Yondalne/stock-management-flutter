@@ -237,4 +237,39 @@ class AuthenticationController extends GetxController {
       );
     }
   }
+
+  Future<void> logout(BuildContext context) async {
+    try {
+      isLoading.value = true;
+
+      authToken.value = '';
+      Navigator.pushNamed(context, "/login");
+    } catch (e) {
+      isLoading.value = false;
+      // Afficher l'erreur dans un modal
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Logout Error"),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("An unexpected error occurred during logout: $e"),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }

@@ -4,6 +4,7 @@ import 'package:stock_management/widgets/pages/HomeScreen.dart';
 import 'package:stock_management/widgets/pages/LoginScreen.dart';
 import 'package:stock_management/widgets/pages/RegisterScreen.dart';
 import 'package:stock_management/widgets/pages/Resources/CreateScreen.dart';
+import 'package:stock_management/widgets/pages/Resources/EditScreen.dart';
 import 'package:stock_management/widgets/pages/Resources/ListScreen.dart';
 import 'package:stock_management/widgets/pages/Resources/SingleScreen.dart';
 
@@ -30,7 +31,11 @@ class MyApp extends StatelessWidget {
           return SingleResource(resource: resource);
         },
         '/resource/create': (context) => CreateResource(),
-        '/resource/edit': (context) => CreateResource(),
+        '/resource/edit': (context) {
+          final resource =
+              ModalRoute.of(context)!.settings.arguments as Resource;
+          return EditResource(resource: resource);
+        },
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
       },

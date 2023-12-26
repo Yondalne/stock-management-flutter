@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_management/models/resource.dart';
+import 'package:stock_management/widgets/components/MyButton.dart';
 
 import '../../../models/category.dart';
 import '../../../models/provider.dart';
@@ -21,48 +22,65 @@ class SingleResource extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Name: ${resource.name}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Description: ${resource.description}",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Quantity: ${resource.quantity}",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Categories:",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Wrap(
-              children: [
-                for (final Category category in resource.categories)
-                  Chip(
-                    label: Text(category.label),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Name: ${resource.name}",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 10),
-              ],
-            ),
-            
-            const SizedBox(height: 100),
-            Text(
-              "Providers:",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Wrap(
-              children: [
-                for (final Provider provider in resource.providers)
-                  Chip(
-                    label: Text(provider.name +" | "+ provider.email),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Description: ${resource.description}",
+                    style: TextStyle(fontSize: 16),
                   ),
-              ],
+                  const SizedBox(height: 10),
+                  Text(
+                    "Quantity: ${resource.quantity}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Categories:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Wrap(
+                    children: [
+                      for (final Category category in resource.categories)
+                        Chip(
+                          label: Text(category.label),
+                        ),
+                      SizedBox(width: 10),
+                    ],
+                  ),
+                  const SizedBox(height: 100),
+                  Text(
+                    "Providers:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Wrap(
+                    children: [
+                      for (final Provider provider in resource.providers)
+                        Chip(
+                          label: Text(provider.name + " | " + provider.email),
+                        ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
             ),
+            MyButton(
+                text: "Edit",
+                onTap: () {
+                  Navigator.pushNamed(context, '/resource/edit',
+                      arguments: resource);
+                }),
           ],
         ),
       ),

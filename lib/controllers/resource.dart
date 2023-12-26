@@ -94,4 +94,41 @@ class ResourceController extends GetxController {
       return "Erreur inattendue lors de l'ajout de la ressource : $e";
     }
   }
+
+  Future<String?> updateResource({
+    required int resourceId,
+    required String name,
+    required String description,
+    required int quantity,
+    required List<int> categories,
+  }) async {
+    try {
+      var data = {
+        'name': name,
+        'description': description,
+        'quantity': quantity,
+        'categories': categories,
+      };
+
+      var response = await http.put(
+        Uri.parse('$url/resources/$resourceId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ${_authController.authToken.value}',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        // Ressource mise à jour avec succès
+        return null;
+      } else if (response.statusCode == 400) {
+        return "Erreur lors de la mise à jour de la ressource. Code 400.";
+      } else {
+        return "Erreur lors de la mise à jour de la ressource. Code ${response.statusCode}.";
+      }
+    } catch (e) {
+      return "Erreur inattendue lors de la mise à jour de la ressource : $e";
+    }
+  }
 }

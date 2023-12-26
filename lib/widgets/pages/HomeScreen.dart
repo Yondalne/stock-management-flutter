@@ -5,15 +5,8 @@ import 'package:stock_management/widgets/components/MyCard.dart';
 
 class HomeScreen extends StatelessWidget {
   final AuthenticationController _authenticationController = Get.find();
-  
-  HomeScreen({super.key});
-  
 
-  void goToRessourceScreen() {}
-  void goToOperationScreen() {}
-  void goToProviderScreen() {}
-  void goToCategoryScreen() {}
-  void logout() {}
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                 MyCard(
                   text: " Operations ",
                   icon: Icons.history,
-                  onTap: goToOperationScreen,
+                  onTap: () {},
                 ),
               ],
             ),
@@ -66,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 MyCard(
                   text: "Fournisseurs",
                   icon: Icons.store,
-                  onTap: goToProviderScreen,
+                  onTap: () {},
                 ),
                 SizedBox(
                   width: 20,
@@ -74,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 MyCard(
                   text: " Categories ",
                   icon: Icons.bento_sharp,
-                  onTap: logout,
+                  onTap: () {},
                 ),
               ],
             ),
@@ -89,12 +82,14 @@ class HomeScreen extends StatelessWidget {
                 MyCard(
                   text: "   LogOut   ",
                   icon: Icons.sensor_door_outlined,
-                  onTap: logout,
+                  onTap: () => _authenticationController.logout(context),
                 ),
               ],
             ),
 
-            SizedBox(height: 40,),
+            SizedBox(
+              height: 40,
+            ),
             Obx(() {
               return Padding(
                 padding: const EdgeInsets.all(20.0),
