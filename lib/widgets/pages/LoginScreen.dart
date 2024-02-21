@@ -15,11 +15,32 @@ class LoginScreen extends StatelessWidget {
       Get.put(AuthenticationController());
 
   void login(BuildContext context) async {
-    await _authenticationController.login(
-      context: context,
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-    );
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      // Afficher un modal pour signaler que les champs sont vides
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Empty fields"),
+            content: Text("Please fill them all"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      await _authenticationController.login(
+        context: context,
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
   }
 
   @override
@@ -30,7 +51,7 @@ class LoginScreen extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
+            children: [
               // Logo
               const Icon(Icons.lock, size: 100),
 

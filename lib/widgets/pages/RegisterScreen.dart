@@ -16,12 +16,37 @@ class RegisterScreen extends StatelessWidget {
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
 
-  void register() async {
-    await _authenticationController.register(
-        name: nameController.text.trim(),
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-        contact: contactController.text.trim());
+  void register(BuildContext context) async {
+    if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        contactController.text.isEmpty) {
+      // Afficher un modal pour signaler que les champs sont vides
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Empty fields"),
+            content: Text("Please fill them all"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      await _authenticationController.register(
+          context: context,
+          name: nameController.text.trim(),
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          contact: contactController.text.trim());
+    }
   }
 
   @override
@@ -87,7 +112,7 @@ class RegisterScreen extends StatelessWidget {
                       ? CircularProgressIndicator()
                       : MyButton(
                           text: "Register",
-                          onTap: register,
+                          onTap: () => register(context),
                         );
                 }),
 
